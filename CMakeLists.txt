@@ -67,7 +67,12 @@ else(WIN32)
     #target_link_libraries(Clipper2 PUBLIC -lm)
 
     # Find Required packages
-    find_package(Eigen3 3.3 REQUIRED)
+    find_package(Eigen3 3.3)
+    if (NOT EIGEN3_FOUND)
+        message(WARNING "Eigen3 not found, will build with the included version.")
+        set(EIGEN3_INCLUDE_DIR external/eigen)
+    endif(NOT EIGEN3_FOUND)
+
 
 endif(WIN32)
 
