@@ -43,10 +43,6 @@ jobs:
       run: |
         sudo apt-get update -qq -y
         sudo apt-get install -qq -y libglu1-mesa build-essential libeigen3-dev
-    - name: Install Brew On Mac OS
-      if: matrix.os == 'macos-14' || matrix.os == 'macos-13'
-      run: |
-        brew install eigen
     - name: Install dependencies
       run: |
         python3 -m pip install --upgrade pip
@@ -55,7 +51,7 @@ jobs:
 
     - name: Build
       run: |
-        python3 setup.py bdist_wheel
+        pip wheel . --no-deps --wheel-dir dist
 
     - name: Publish (Windows)
       env:
